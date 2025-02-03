@@ -46,10 +46,6 @@ MStatus uninitializePlugin( MObject obj)
     MStatus   status = MStatus::kSuccess;
     MFnPlugin plugin( obj );
 
-
-
-
-
     // Registering the Commands
     // Register the "LSystemCmd" Command
     status = plugin.deregisterCommand( "LSystemCmd" );
@@ -58,6 +54,16 @@ MStatus uninitializePlugin( MObject obj)
 	    return status;
     }
 
+    // @TODO Deregister the UI Element when the Plugin is Unloaded
+    status= MGlobal::executeCommand(
+        "if (`menu -exists LSystemMenu`) deleteUI LSystemMenu;"
+    );
+    if (!status)
+    {
+        status.perror("Failed to Remove LSystem Menu!");
+    }
+
+    // Return whatever status
     return status;
 }
 
