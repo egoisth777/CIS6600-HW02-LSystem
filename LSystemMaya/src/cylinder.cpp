@@ -1,5 +1,6 @@
 #include "cylinder.h"
 #include <maya/MMatrix.h>
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 MPointArray CylinderMesh::gPoints;
@@ -8,7 +9,7 @@ MIntArray CylinderMesh::gFaceCounts;
 MIntArray CylinderMesh::gFaceConnects;
 
 CylinderMesh::CylinderMesh(
-   const MPoint& start, const MPoint& end, double _r) : 
+   const MPoint& start, const MPoint& end, double _r) :
     mStart(start), mEnd(end), r(_r)
 {
     if (gPoints.length() == 0)
@@ -57,13 +58,13 @@ void CylinderMesh::transform(MPointArray& points, MVectorArray& normals)
 }
 
 void CylinderMesh::appendToMesh(
-    MPointArray& points, 
-    MIntArray& faceCounts, 
+    MPointArray& points,
+    MIntArray& faceCounts,
     MIntArray& faceConnects)
 {
     MPointArray cpoints;
-    MVectorArray cnormals; 
-    transform(cpoints, cnormals);    
+    MVectorArray cnormals;
+    transform(cpoints, cnormals);
 
     int startIndex = points.length(); // offset for indexes
     for (int i = 0; i < cpoints.length(); i++)
@@ -82,12 +83,12 @@ void CylinderMesh::appendToMesh(
 }
 
 void CylinderMesh::getMesh(
-    MPointArray& points, 
-    MIntArray& faceCounts, 
+    MPointArray& points,
+    MIntArray& faceCounts,
     MIntArray& faceConnects)
 {
-    MVectorArray cnormals; 
-    transform(points, cnormals);    
+    MVectorArray cnormals;
+    transform(points, cnormals);
     faceCounts = gFaceCounts;
     faceConnects = gFaceConnects;
 }
@@ -129,7 +130,7 @@ void CylinderMesh::initCylinderMesh(double r)
         gFaceConnects.append((i+1)%numslices);
         gFaceConnects.append(i);
     }
-    
+
     // Set indices for endcap 2
     for (int i = numslices; i < 2*numslices; i++)
     {
@@ -151,3 +152,4 @@ void CylinderMesh::initCylinderMesh(double r)
         gFaceConnects.append(i+numslices);
     }
 }
+

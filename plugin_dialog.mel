@@ -1,4 +1,11 @@
-
+global proc createLSystemNode() {
+	createNode transform -n LSystem1;
+	createNode mesh -n LSystemShape1 -p LSystem1;
+	sets -add initialShadingGroup LSystemShape1;
+	createNode LSystemNode -n LSystemNode1;
+	connectAttr time1.outTime LSystemNode1.time;
+	connectAttr LSystemNode1.outputMesh LSystemShape1.inMesh;
+};
 
 global proc createWindow()
 {
@@ -69,4 +76,4 @@ global string $gMainWindow;
 setParent $gMainWindow;
 menu -label "My LSystem" -parent $gMainWindow -tearOff on LSystemMenu;
 menuItem -label "LSystemCommand" -command ("createWindow");
-// menuItem -label "LSystemNode" -command ("createLSystemNode()");
+menuItem -label "LSystemNode" -command ("createLSystemNode()");

@@ -12,17 +12,17 @@
 class CylinderMesh
 {
 public:
-    CylinderMesh(const MPoint& start, const MPoint& end, double r = 0.25);
+    CylinderMesh(const MPoint& start, const MPoint& end, double r = 0.04);
     ~CylinderMesh();
 
     void getMesh(
-        MPointArray& points, 
-        MIntArray& faceCounts, 
+        MPointArray& points,
+        MIntArray& faceCounts,
         MIntArray& faceConnects);
-    
+
     void appendToMesh(
-        MPointArray& points, 
-        MIntArray& faceCounts, 
+        MPointArray& points,
+        MIntArray& faceCounts,
         MIntArray& faceConnects);
 
 protected:
